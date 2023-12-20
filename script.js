@@ -1,15 +1,15 @@
 function showCategories() {
-    const container = document.querySelector(".categories")
-    const title = document.createElement('div')
-    title.innerHTML = `<h3>Категорії:</h3>`
-    container.appendChild(title)
+    const container = document.querySelector(".categories");
+    const title = document.createElement('div');
+    title.innerHTML = `<h3>Категорії:</h3>`;
+    container.appendChild(title);
 
     for (let i = 0; i < data.length; i++) {
         const element = document.createElement('div');
         element.innerHTML = data[i].name;
         element.setAttribute('data-category', i);
-        element.addEventListener("click", showProductHandler)
-        container.appendChild(element)
+        element.addEventListener("click", showProductHandler);
+        container.appendChild(element);
     }
 }
 
@@ -17,9 +17,9 @@ function showProductHandler(event) {
     const container = document.querySelector(".products");
     container.innerHTML = "";
 
-    const title = document.createElement('div')
-    title.innerHTML = `<h3>Перелік товарів:</h3>`
-    container.appendChild(title)
+    const title = document.createElement('div');
+    title.innerHTML = `<h3>Перелік товарів:</h3>`;
+    container.appendChild(title);
 
     const element = event.target;
     const categoryIndex = element.getAttribute("data-category");
@@ -30,9 +30,9 @@ function showProductHandler(event) {
         childElement.innerHTML = "";
         childElement.innerHTML = `Модель: ${categoryProducts[i].name}`;
         childElement.setAttribute("data-category", categoryIndex);
-        childElement.setAttribute("data-product", i)
-        childElement.addEventListener("click", showDetailsProductHadnler)
-        container.appendChild(childElement)
+        childElement.setAttribute("data-product", i);
+        childElement.addEventListener("click", showDetailsProductHadnler);
+        container.appendChild(childElement);
     }
 }
 
@@ -40,9 +40,9 @@ function showDetailsProductHadnler(event) {
     const container = document.querySelector(".details");
     container.innerHTML = "";
 
-    const title = document.createElement('div')
-    title.innerHTML = `<h3>Деталі товару:</h3>`
-    container.appendChild(title)
+    const title = document.createElement('div');
+    title.innerHTML = `<h3>Деталі товару:</h3>`;
+    container.appendChild(title);
     
     const element = event.target;
     const categoryIndex = element.getAttribute("data-category");
@@ -52,17 +52,17 @@ function showDetailsProductHadnler(event) {
     const description = document.createElement('div');
     const price = document.createElement('div');
 
-    description.innerHTML = `Опис: ${categoryProducts[productIndex].description}`
-    price.innerHTML = `Вартість: ${categoryProducts[productIndex].price}$`
+    description.innerHTML = `Опис: ${categoryProducts[productIndex].description}`;
+    price.innerHTML = `Вартість: ${categoryProducts[productIndex].price}$`;
     container.appendChild(description);
     container.appendChild(price);
 
 
-    const btn = document.createElement("button")
+    const btn = document.createElement("button");
     btn.textContent = 'Сплатити';
-    btn.classList.add("btn_style")
-    btn.addEventListener("click", showMessageHandler)
-    container.appendChild(btn)
+    btn.classList.add("btn_style");
+    btn.addEventListener("click", showMessageHandler);
+    container.appendChild(btn);
 
 }
 
@@ -70,7 +70,7 @@ function showDetailsProductHadnler(event) {
 function showMessageHandler() {
     const body = document.querySelector("body");
     const divContainer = document.createElement("div");
-    divContainer.classList.add('divContainer')
+    divContainer.classList.add('divContainer');
     const form = document.createElement("form");
 
     const divContainerInitials = document.createElement("div");
@@ -144,7 +144,7 @@ function showMessageHandler() {
 
     //Частина обрання кількості товару
     const prerCountProduct = document.createElement("p");
-    prerCountProduct.textContent = 'Введіть кількість продукції'
+    prerCountProduct.textContent = 'Введіть кількість продукції';
     const inputCountProduct = document.createElement("input");
     inputCountProduct.classList.add("inputCountProduct");
 
@@ -153,7 +153,7 @@ function showMessageHandler() {
 
     //Частина коментарів
     const preComments = document.createElement("p");
-    preComments.textContent = 'Введіть коментар'
+    preComments.textContent = 'Введіть коментар';
     const textCommentsArea = document.createElement("textarea");
     textCommentsArea.classList.add("textCommentsArea");
 
@@ -161,7 +161,7 @@ function showMessageHandler() {
     //Кнопка
     const buttonElement = document.createElement("button");
     buttonElement.textContent = 'Підтвердити замовлення';
-    buttonElement.addEventListener("click", showInfoAboutOrderHandler)
+    buttonElement.addEventListener("click", showInfoAboutOrderHandler);
 
 
 
@@ -189,16 +189,10 @@ function showInfoAboutOrderHandler(event) {
     const inputCountProductValue = document.querySelector('.inputCountProduct').value;
     const textCommentsAreaValue = document.querySelector('.textCommentsArea').value;
 
-    if (
-        personInfoValue === null || personInfoValue === '' ||
-        selectCityValue === null || selectCityValue === '' ||
-        selectNovaPoshtaValue === null || selectNovaPoshtaValue === '' ||
-        selectPayMethodValue === null || selectPayMethodValue === '' ||
-        inputCountProductValue === null || inputCountProductValue === ''
-    ) {
+    if (isFormValid(personInfoValue, selectCityValue, selectNovaPoshtaValue, selectPayMethodValue, inputCountProductValue)) {
         alert('Будь-ласка, заповніть усі поля для вводу!');
         return;
-    }
+    } 
     
 
     const divContainerPersonInfo = document.createElement('div');
@@ -263,8 +257,18 @@ function showInfoAboutOrderHandler(event) {
 
     divContainer.append(titleH1, divContainerPersonInfo, divContainerCityInfo, divContainerNovaPoshtaInfo, divContainerPayMethodInfo, divContainerProductInfo, divContainerCommentInfo, resetButton);
 
-    document.querySelector('form').remove()
+    document.querySelector('form').remove();
+}
+
+function isFormValid(personInfoValue, selectCityValue, selectNovaPoshtaValue, selectPayMethodValue, inputCountProductValue) {
+    return personInfoValue === null || personInfoValue === '' ||
+          selectCityValue === null || selectCityValue === '' ||
+          selectNovaPoshtaValue === null || selectNovaPoshtaValue === '' ||
+          selectPayMethodValue === null || selectPayMethodValue === '' ||
+          inputCountProductValue === null || inputCountProductValue === '';
 }
 
 
-showCategories()
+
+
+showCategories();
