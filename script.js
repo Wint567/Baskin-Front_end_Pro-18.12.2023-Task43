@@ -11,6 +11,8 @@ function showCategories() {
         element.addEventListener("click", showProductHandler);
         container.appendChild(element);
     }
+
+
 }
 
 function showProductHandler(event) {
